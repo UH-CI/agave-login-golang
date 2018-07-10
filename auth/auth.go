@@ -45,9 +45,8 @@ func main() {
 		payload, _ := base64.StdEncoding.DecodeString(auth[1])
 		pair := strings.SplitN(string(payload), ":", 2)
 		fmt.Println(pair[0])
-		fmt.Println(pair[1])
+		//fmt.Println(pair[1])
 		//setup request to Agave tenant for fetching an auth token
-		//client := &http.Client{}
 		data := url.Values{}
 		data.Set("grant_type", "password")
 		data.Set("username", pair[0])
@@ -72,18 +71,7 @@ func main() {
 		}
 
 		fmt.Println(resp.Status)
-		//fmt.Println(resp.Body)
-		//bodyJSON := json.NewDecoder(resp.Body)
-		//fmt.Println(bodyJSON)
-		//rawbody, _ := ioutil.ReadAll(resp.Body)
-		//sfmt.Println(rawbody)
-		//jsonBody := json.NewDecoder(resp.Body).Decode(&data)
-		//fmt.Println(jsonBody)
-		/*var body struct {
-			// httpbin.org sends back key/value pairs, no map[string][]string
-			Headers map[string]string `json:"headers"`
-			Origin  string            `json:"origin"`
-		}*/
+
 		processedBody := json.NewDecoder(resp.Body) //.Decode(&body)
 		fmt.Println(processedBody)
 
@@ -95,10 +83,9 @@ func main() {
 			w.Header().Set("Content-Type", "application/json")
 			w.Write(output)
 		}
-		//else{
-		//	w.Write([]byte(resp.StatusCode))
-		//}
-		//w.Write([]byte("{\"token\": \"create\"}"))
+		else{
+			w.Write([]byte(resp.StatusCode))
+		}
 	})
 
 	mux.HandleFunc("/refresh", func(w http.ResponseWriter, r *http.Request) {
@@ -113,7 +100,7 @@ func main() {
 		payload, _ := base64.StdEncoding.DecodeString(auth[1])
 		pair := strings.SplitN(string(payload), ":", 2)
 		fmt.Println(pair[0])
-		fmt.Println(pair[1])
+		//fmt.Println(pair[1])
 
 		data := url.Values{}
 		data.Set("grant_type", "password")
@@ -127,7 +114,7 @@ func main() {
 			// handle err
 		}
 		req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-		//req.Header.Set("Authorization", "Bearer b7d03a6947b217efb6f3ec3bd3504582")
+		//req.Header.Set("Authorization", "Bearer 2")
 		req.SetBasicAuth(consumerKey, consumerSecret)
 		fmt.Println(req)
 		resp, err := http.DefaultClient.Do(req)

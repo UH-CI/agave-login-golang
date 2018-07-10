@@ -7,4 +7,4 @@ Once modified build the application:
 
 Then execute the application.  It will be availalbe on localhost:8080 (by default).
 
-The API is accessed at localhost:8080/token and is expecting a BasiC Auth username and password to login to the Agave tenant.
+The API is accessed at localhost:8080/token and is expecting a Basic Auth username and password to login to the Agave tenant.
